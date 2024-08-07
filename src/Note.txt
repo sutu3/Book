@@ -1,0 +1,122 @@
+1/Nhập Hàng:
+
+Khi nhập sách vào kho, bạn có thể thêm một bản ghi mới vào bảng BookVersions với giá gốc (original_price), giá bán (sale_price), và số lượng (quantity).
+Nhập Sách Vào Kho:
+
+
+Bước 3: Cập nhật bảng StockEntries với thông tin về số lượng, giá mua và ngày nhập.
+Bước 4: Cập nhật bảng Inventory để theo dõi số lượng sách trong kho.
+Quản Lý Sách Trong Kho:
+Bước 1: Sử dụng bảng Inventory để ghi nhận mọi thay đổi số lượng sách do việc nhập kho hoặc bán hàng.
+
+2/Lên Kệ:
+Nhập Thông Tin Sách:
+Bước 1: Thêm sách vào bảng Books.
+Bước 2: Cập nhật bảng BookVariants, BookVersions, và BookImages nếu có biến thể hoặc ảnh của sách.
+Quản Lý Sách Trong Kho:
+
+Bước 1: Cập nhật bảng StockEntries khi nhập sách vào kho.
+Bước 2: Cập nhật bảng Inventory với thông tin về số lượng sách có sẵn và điều chỉnh khi có thay đổi.
+Khi sách được đưa lên kệ, bạn có thể cập nhật hoặc thêm thông tin vào bảng BookVersions để phản ánh trạng thái của sách trong kho, bao gồm giá bán và số lượng tồn kho.
+3/Quy Trình Khách Hàng Mua Sách
+Đặt Hàng:
+
+Bước 1: Thêm thông tin đơn hàng vào bảng Orders.
+Bước 2: Thêm chi tiết từng món hàng vào bảng OrderItems.
+Cập Nhật Kho Hàng:
+
+Bước 1: Cập nhật bảng Inventory với sự thay đổi số lượng sách khi có giao dịch bán hàng.
+Quản Lý Đánh Giá:
+
+Bước 1: Khi khách hàng đánh giá sách, thêm thông tin vào bảng Reviews.
+
+
+
+Table
+1.1. Books
+Công dụng: Lưu trữ thông tin cơ bản về từng cuốn sách như tiêu đề, tác giả, nhà xuất bản, bộ sách, kích thước, trọng lượng, số trang, người dịch và hình ảnh bìa sách.
+Bảng liên quan: Authors, Series, Publishers.
+1.2. Authors
+Công dụng: Lưu trữ thông tin về các tác giả như tên và tiểu sử. Một tác giả có thể viết nhiều cuốn sách.
+Bảng liên quan: Books (mối quan hệ qua author_id).
+1.3. Series
+Công dụng: Lưu trữ thông tin về các bộ sách. Một bộ sách có thể bao gồm nhiều cuốn sách.
+Bảng liên quan: Books (mối quan hệ qua series_id).
+1.4. Publishers
+Công dụng: Lưu trữ thông tin về các nhà xuất bản, như tên, địa chỉ và trang web. Một nhà xuất bản có thể xuất bản nhiều cuốn sách.
+Bảng liên quan: Books (mối quan hệ qua publisher_id).
+1.5. Languages
+Công dụng: Lưu trữ thông tin về các ngôn ngữ mà sách có thể được dịch sang. Một cuốn sách có thể được dịch sang nhiều ngôn ngữ.
+Bảng liên quan: BookLanguages.
+1.6. BookLanguages
+Công dụng: Quản lý mối quan hệ nhiều-nhiều giữa sách và ngôn ngữ dịch. Một cuốn sách có thể có nhiều ngôn ngữ và một ngôn ngữ có thể dịch nhiều cuốn sách.
+Bảng liên quan: Books, Languages.
+1.7. PublicationYears
+Công dụng: Lưu trữ các năm xuất bản khác nhau. Một cuốn sách có thể có nhiều năm xuất bản.
+Bảng liên quan: BookPublicationYears.
+1.8. BookPublicationYears
+Công dụng: Quản lý mối quan hệ nhiều-nhiều giữa sách và năm xuất bản. Một cuốn sách có thể có nhiều năm xuất bản và một năm xuất bản có thể có nhiều cuốn sách.
+Bảng liên quan: Books, PublicationYears.
+1.9. Categories
+Công dụng: Lưu trữ các thể loại sách như khoa học, tiểu thuyết, v.v. Một cuốn sách có thể thuộc nhiều thể loại và một thể loại có thể bao gồm nhiều cuốn sách.
+Bảng liên quan: BookCategories.
+1.10. BookCategories
+Công dụng: Quản lý mối quan hệ nhiều-nhiều giữa sách và thể loại. Một cuốn sách có thể thuộc nhiều thể loại và một thể loại có thể bao gồm nhiều cuốn sách.
+Bảng liên quan: Books, Categories.
+1.11. BookDescriptions
+Công dụng: Lưu trữ các mô tả chi tiết của sách với tiêu đề và nội dung mô tả. Một cuốn sách có thể có nhiều mô tả.
+Bảng liên quan: Books.
+1.12. BookVariants
+Công dụng: Quản lý các biến thể của sách như ngôn ngữ, định dạng, giá bán và số lượng. Một cuốn sách có thể có nhiều biến thể.
+Bảng liên quan: Books, Languages.
+1.13. BookVersions
+Công dụng: Quản lý các phiên bản của sách khi nhập kho, bao gồm giá gốc, giá bán, số lượng và ngày nhập. Dùng để theo dõi và điều chỉnh giá khi sách được bán ra.
+Bảng liên quan: Books.
+1.14. Users
+Công dụng: Lưu trữ thông tin về người dùng, bao gồm tên, mật khẩu, email, vai trò và ảnh đại diện.
+Bảng liên quan: Employees, UserRoles.
+1.15. Employees
+Công dụng: Lưu trữ thông tin về nhân viên, liên kết với bảng Users.
+Bảng liên quan: Users.
+1.16. Roles
+Công dụng: Lưu trữ các vai trò khác nhau cho người dùng, chẳng hạn như customer, employee, admin.
+Bảng liên quan: UserRoles.
+1.17. UserRoles
+Công dụng: Quản lý mối quan hệ nhiều-nhiều giữa người dùng và vai trò. Một người dùng có thể có nhiều vai trò và một vai trò có thể áp dụng cho nhiều người dùng.
+Bảng liên quan: Users, Roles.
+1.18. Permissions
+Công dụng: Lưu trữ các quyền hạn có thể cấp cho nhân viên, như quyền thêm/xóa sản phẩm, quản lý đơn hàng.
+Bảng liên quan: EmployeePermissions.
+1.19. EmployeePermissions
+Công dụng: Quản lý mối quan hệ nhiều-nhiều giữa nhân viên và quyền hạn. Một nhân viên có thể có nhiều quyền và một quyền có thể được cấp cho nhiều nhân viên.
+Bảng liên quan: Employees, Permissions.
+1.20. StockEntries
+Công dụng: Lưu trữ thông tin về việc nhập hàng vào kho, bao gồm số lượng sách, giá mua và ngày nhập.
+Bảng liên quan: Books.
+1.21. Inventory
+Công dụng: Quản lý sự thay đổi số lượng sách trong kho, bao gồm các thay đổi do bán hàng và nhập hàng.
+Bảng liên quan: Books.
+1.22. Sales
+Công dụng: Lưu trữ thông tin về các giao dịch bán hàng, bao gồm số lượng sách bán và ngày bán.
+Bảng liên quan: Books.
+1.23. Discounts
+Công dụng: Lưu trữ thông tin về các đợt giảm giá, bao gồm mã giảm giá, phần trăm giảm và thời gian áp dụng.
+Bảng liên quan: BookDiscounts.
+1.24. BookDiscounts
+Công dụng: Quản lý mối quan hệ nhiều-nhiều giữa sách và đợt giảm giá. Một đợt giảm giá có thể áp dụng cho nhiều cuốn sách và một cuốn sách có thể được giảm giá trong nhiều đợt.
+Bảng liên quan: Books, Discounts.
+1.25. Images
+Công dụng: Lưu trữ thông tin về các ảnh như URL và mô tả. Có thể bao gồm ảnh sách và ảnh người dùng.
+Bảng liên quan: BookImages, Users.
+1.26. BookImages
+Công dụng: Quản lý mối quan hệ nhiều-nhiều giữa sách và ảnh. Một cuốn sách có thể có nhiều ảnh.
+Bảng liên quan: Books, Images.
+1.27. Reviews
+Công dụng: Lưu trữ các đánh giá của khách hàng về sách, bao gồm điểm số, nhận xét và ngày đánh giá.
+Bảng liên quan: Books, Users.
+1.28.Orders: Chứa thông tin về các đơn hàng của người dùng.
+1.29.Deliveries: Quản lý các lần giao hàng
+1.30.PurchaseOrder: Bảng này sẽ lưu trữ thông tin chung về các đơn hàng nhập kho, chẳng hạn như ngày nhập
+ nhà cung cấp, tổng số lượng, và trạng thái đơn hàng.
+1.31.PurchaseOrderItem: Bảng này sẽ lưu trữ chi tiết từng mặt hàng trong mỗi đơn hàng nhập, bao gồm ID
+ của đơn hàng, ID của sách, số lượng và giá nhập
